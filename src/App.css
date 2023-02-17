@@ -1,4 +1,26 @@
 .App {
+  margin: 2rem;
+}
+
+.CardContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+}
+
+.CardContainer > * {
+  flex: 1 1 25rem;
+}
+
+
+
+
+
+
+
+
+
+/* .App {
   text-align: center;
 }
 
@@ -36,3 +58,4 @@
     transform: rotate(360deg);
   }
 }
+ */
