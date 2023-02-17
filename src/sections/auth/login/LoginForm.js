@@ -1,17 +1,13 @@
 import React, { useState } from 'react';
-//import { useNavigate } from 'react-router-dom';
 import { Box, Button, TextField, Typography } from '@mui/material';
 import axios from 'axios';
 
 const LoginForm = () => {
-  /* Funcion para navegar entre paginas una ves se hace el Login, para ver el menu principal u otra seccion */
-  //const navigate = useNavigate();
-
-  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleUsernameChange = (event) => {
-    setUsername(event.target.value);
+  const handleEmailChange = (event) => {
+    setEmail(event.target.value);
   };
 
   const handlePasswordChange = (event) => {
@@ -20,19 +16,16 @@ const LoginForm = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    // Enviar el formulario de inicio de sesión al servidor
     axios
       .post('http://127.0.0.1:8000/api/login_api/', {
-        username: username,
+        email: email,
         password: password,
       })
       .then((response) => {
         console.log(response.data);
-        // Redireccionar a la página principal después de iniciar sesión
       })
       .catch((error) => {
         console.log(error);
-        // Mostrar un mensaje de error al usuario
       });
   };
 
@@ -56,11 +49,11 @@ const LoginForm = () => {
         }}
       >
         <TextField
-          id="username"
-          label="Usuario"
+          id="email"
+          label="Correo electrónico"
           variant="outlined"
-          value={username}
-          onChange={handleUsernameChange}
+          value={email}
+          onChange={handleEmailChange}
         />
         <TextField
           id="password"
