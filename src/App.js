@@ -1,29 +1,37 @@
-import React from 'react';
 // routes
-//import Router from "./routes";
+import Router from './routes';
 // theme
-//import ThemeProvider from "./theme";
-//import { UserList } from "../src/sections/@dashboard/user/index";
-//import { PacientesList } from "../src/sections/@dashboard/customers/index";
-import {LoginForm} from '../src/sections/auth/login/index';
+import ThemeProvider from './theme';
+// components
+import ScrollToTop from './components/scroll-to-top';
+import { StyledChart } from './components/chart';
+
+
+/* import { UserList } from "../src/sections/@dashboard/user/index";
+import { PacientesList } from "../src/sections/@dashboard/customers/index";
+import {LoginForm} from '../src/sections/auth/login/index'; */
+//import LoginPage from './pages/LoginPage';
 
 export default function App() {
   return (
-    <div className="App">
-      {/* <UserList />
-      <PacientesList /> */}
-      <LoginForm />
-    </div>
+    <ThemeProvider>
+      <ScrollToTop />
+      <StyledChart />
+      <Router />
+    </ThemeProvider>
   );
 }
 
 // ----------------------------------------------------------------------
 /* /* <ThemeProvider>
+      <ScrollToTop />
+      <StyledChart />
       <Router />
     </ThemeProvider>
     
 <div className="App">
       <UserList />
+      <LoginForm />
       <PacientesList/>
     </div> */
 

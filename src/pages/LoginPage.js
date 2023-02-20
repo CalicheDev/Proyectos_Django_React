@@ -2,6 +2,7 @@ import { Helmet } from 'react-helmet-async';
 import { useNavigate } from 'react-router-dom';
 import { LoginForm } from '../sections/auth/login';
 
+
 //@mui
 import { styled } from '@mui/material/styles';
 import { Link, Container, Typography, Divider, Stack, Button } from '@mui/material';
@@ -70,7 +71,7 @@ export default function LoginPage() {
         {mdUp && (
           <StyledSection>
             <Typography variant="h3" sx={{ px: 5, mt: 10, mb: 5 }}>
-              Bienvenido a la Agenda Médica - FIDEM
+              Bienvenido al CRM - MEDCOL
             </Typography>
             <img src="/assets/illustrations/illustration_login.png" alt="login" />
           </StyledSection>

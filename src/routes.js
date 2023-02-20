@@ -8,8 +8,11 @@ import RegisterPage from './pages/RegisterPage';
 import UserPage from './pages/UserPage';
 import ProfilePage from './pages/ProfilePage';
 import Page404 from './pages/Page404';
-
 import DashboardAppPage from './pages/DashboardAppPage';
+
+//import {LoginForm} from '../src/sections/auth/login/index';
+//import { UserList } from "../src/sections/@dashboard/user/index";
+
 
 // ----------------------------------------------------------------------
 
@@ -22,7 +25,6 @@ export default function Router() {
         { element: <Navigate to="/dashboard/app" />, index: true },
         { path: 'app', element: <DashboardAppPage /> },
         { path: 'user', element: <UserPage /> },
-        
         { path: 'perfil', element: <ProfilePage /> },
         
       ],
