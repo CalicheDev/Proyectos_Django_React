@@ -1,104 +1,102 @@
-/* import { Buffer } from 'buffer';
-
-
 import { useEffect, useState } from 'react';
+// @mui
+import {
+  Link,
+  Stack,
+  IconButton,
+  InputAdornment,
+  TextField,
+  Checkbox,
+  Typography,
+  Divider,
+  Alert,
+  Button,
+  Box,
+  Collapse,
+  FormControl,
+  InputLabel,
+  Input,
+  FormHelperText,
+  FormControlLabel,
+} from '@mui/material';
+import { LoadingButton } from '@mui/lab';
+// components
+import Iconify from '../../../components/iconify';
 import Cookies from 'js-cookie';
-import base64url from 'base64url';
-
-if (typeof global.Buffer === 'undefined') {
-  global.Buffer = Buffer;
-}
+import jwt_decode from 'jwt-decode';
+//import jwt from 'jsonwebtoken';
 
 export default function DataForm() {
+  const [showPassword, setShowPassword] = useState(false);
   const [user, setUser] = useState('');
 
   useEffect(() => {
-    const authToken = Cookies.get('auth_token');
-    if (authToken) {
-      const [header, payload, signature] = authToken.split('.'); // obtener las partes del token
-      const decodedPayload = JSON.parse(base64url.decode(payload)); // decodificar el payload
-      const { username, password } = decodedPayload; // obtener los datos de usuario
-      setUser({ username, password }); // actualizar el estado con los datos de usuario
-    }
-  }, []);
-
-  return (
-    <>
-      <div>
-        <h1>Perfil de usuario</h1>
-        <p>Username: {user.username}</p>
-        <p>Password: {user.password}</p>
-      </div>
-    </>
-  );
-} */
-
-
-// Primera opcion para importar y capturar los datos del token
-/* import { useEffect, useState } from 'react';
-import Cookies from 'js-cookie';
-//import jwt from 'jsonwebtoken';
-
-
-export default function DataForm() {
-  const jwt = require('jsonwebtoken');
-  const [user, setUser] = useState('');  
-
-  useEffect(() => {
-    const authToken = Cookies.get('auth_token'); // Función para obtener la cookie "auth_token"
+    let authToken = Cookies.get('auth_token'); // Función para obtener la cookie "auth_token"
     console.log(authToken);
     if (authToken) {
       // Decodificar el token JWT para obtener los datos de usuario
-      const decodedToken = jwt.decode(authToken);
+      const decodedToken = jwt_decode(authToken);
       if (decodedToken) {
-        const { name, email, photoUrl } = decodedToken; // Obtener los datos de usuario del token decodificado
-        setUser({ displayName: name, email, photoURL: photoUrl }); // Actualizar el estado con los datos de usuario
+        const { username, password, first_name, last_name,email } = decodedToken; // Obtener los datos de usuario del token decodificado
+        setUser({ displayName: username, password, first_name, last_name, email}); // Actualizar el estado con los datos de usuario
       }
     }
   }, []);
 
   return (
     <>
-      <div>
+      <Stack spacing={2}>
+        <Divider sx={{ my: 3 }}>
+          <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+            INFORMACIÓN DEL USUARIO
+          </Typography>
+        </Divider>
+        <Typography variant="h6" sx={{ mb: 2 }}>
+          Nombre:{''}
+        </Typography>
+        <TextField type="text" name="first_name" label="Nombres" value={user.first_name}/>
+        <Typography variant="h6" sx={{ mb: 2 }}>
+          Apellidos:{' '}
+        </Typography>
+        <TextField type="text" name="last_name" label="Apellidos" value={user.last_name} />
+        
+        <TextField type="email" name="email" label="Email" value={user.email} />
+        <TextField
+          name="password"
+          label="Password"
+          type={showPassword ? 'text' : 'password'}
+          InputProps={{
+            endAdornment: (
+              <InputAdornment position="end">
+                <IconButton onClick={() => setShowPassword(!showPassword)} edge="end">
+                  <Iconify icon={showPassword ? 'eva:eye-fill' : 'eva:eye-off-fill'} />
+                </IconButton>
+              </InputAdornment>
+            ),
+          }}
+        />
+      </Stack>
+      <Stack direction="row" alignItems="center" justifyContent="space-between" spacing={3}>
+        <LoadingButton fullWidth size="large" type="reset" variant="contained" color="warning">
+          Limpiar datos
+        </LoadingButton>
+        <LoadingButton
+          fullWidth
+          size="large"
+          type="submit"
+          variant="contained"
+          /* color="info" */ onClick={''} //Crear funcion con metodo POST en axios para actualizar los datos en la tabla
+        >
+          Actualizar datos
+        </LoadingButton>
+      </Stack>
+
+      {/* <div>
         <h1>Perfil de usuario</h1>
-        <p>Nombre: {user.displayName}</p>
-        <p>Email: {user.email}</p>
-        <img src={user.photoURL} alt={user.displayName} /> 
-      </div>
-    </>
-  );
-} */
-
-// Segunda opcion para importar y capturar los datos del token
-/* import { Buffer } from 'buffer';
-import { useEffect, useState } from 'react';
-import Cookies from 'js-cookie';
-
-export default function DataForm() {
-  if (typeof global.Buffer === 'undefined') {
-    global.Buffer = Buffer;
-  }
-  const [user, setUser] = useState('');
-
-  useEffect(() => {
-    const authToken = Cookies.get('auth_token');
-    console.log(authToken);
-    if (authToken) {
-      const decodedToken = decodeURIComponent(atob(authToken).split('').map(function(c) {
-        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-      }).join(''));
-      const { username, password } = JSON.parse(decodedToken);
-      setUser({ username, password });
-    }
-  }, []);
-
-  return (
-    <>
-      <div>
-        <h1>Perfil de usuario</h1>
-        <p>Username: {user.username}</p>
+        <p>Username: {user.displayName}</p>
+        <p>Name: {user.first_name}</p>
         <p>Password: {user.password}</p>
-      </div>
+      </div> */}
     </>
   );
-} */
+}
