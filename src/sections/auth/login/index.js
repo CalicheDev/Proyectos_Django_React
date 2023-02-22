@@ -1,5 +1,5 @@
 export { default as LoginForm } from './LoginForm';
 
-//export { default as RegisterForm } from './RegisterForm';
+export { default as RegisterForm } from './RegisterForm';
 
-//export { default as DataForm } from './DataForm';
+export { default as DataForm } from './DataForm';

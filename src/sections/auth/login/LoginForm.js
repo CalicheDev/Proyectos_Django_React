@@ -3,13 +3,14 @@ import { useNavigate } from 'react-router-dom';
 import { Box, TextField, Typography } from '@mui/material'; /* Button, */
 import { LoadingButton } from '@mui/lab';
 import axios from 'axios';
+import Cookies from 'js-cookie';
 
 const LoginForm = () => {
   /* Funcion para navegar entre paginas una ves se hace el Login, para ver el menu principal u otra seccion */
   const navigate = useNavigate();
-  const handleClick = () => { 
-    navigate('/dashboard/user', { replace: true });
-  }
+  /* const handleClick = () => { 
+    navigate('/dashboard', { replace: true });
+  } */
 
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -31,8 +32,15 @@ const LoginForm = () => {
         password: password,
       })
       .then((response) => {
-        console.log(response.data);
-        // Redireccionar a la página principal después de iniciar sesión
+        if (response.status === 200) {
+          console.log(response.data);
+          // Redireccionar a la página principal después de iniciar sesión
+          Cookies.set('auth_token', response.data.token); // Guardar el token en una cookie
+          navigate('/dashboard/user', { replace: true });
+        } else {
+          // Mostrar un mensaje de error al usuario
+          console.log(`Error: estado de la respuesta ${response.status}`);
+        }
       })
       .catch((error) => {
         console.log(error);
@@ -74,7 +82,7 @@ const LoginForm = () => {
           value={password}
           onChange={handlePasswordChange}
         />
-        <LoadingButton variant="contained" type="submit" onClick={handleClick}>
+        <LoadingButton variant="contained" type="submit">
           Ingresar
         </LoadingButton>
       </Box>

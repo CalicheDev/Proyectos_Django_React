@@ -6,7 +6,6 @@ import ThemeProvider from './theme';
 import ScrollToTop from './components/scroll-to-top';
 import { StyledChart } from './components/chart';
 
-
 /* import { UserList } from "../src/sections/@dashboard/user/index";
 import { PacientesList } from "../src/sections/@dashboard/customers/index";
 import {LoginForm} from '../src/sections/auth/login/index'; */

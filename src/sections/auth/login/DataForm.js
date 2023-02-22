@@ -1,189 +1,104 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-// @mui
-import {
-  Link,
-  Stack,
-  IconButton,
-  InputAdornment,
-  TextField,
-  Checkbox,
-  Typography,
-  Divider,
-  Alert,
-  Button,
-  Box,
-  Collapse,
-  FormControl,
-  InputLabel,
-  Input,
-  FormHelperText,
-  FormControlLabel,
-} from '@mui/material';
-import { LoadingButton,DatePicker  } from '@mui/lab';
-import CloseIcon from '@mui/icons-material/Close';
-// components
-import Iconify from '../../../components/iconify';
+/* import { Buffer } from 'buffer';
 
-// ----------------------------------------------------------------------
 
-/* const SORT_OPTIONS = [
-  { value: 'CC', label: 'CC' },
-  { value: 'TI', label: 'TI' },
-  { value: 'CE', label: 'CE' },
-  { value: 'RC', label: 'RC' },
-  { value: 'PA', label: 'PA' },
-  { value: 'AS', label: 'AS' },
-  { value: 'MS', label: 'MS' },
-  { value: 'SC', label: 'SC' },
-  { value: 'CD', label: 'CD' },
-  { value: 'PE', label: 'PE' },
-  { value: 'RE', label: 'RE' },
-  { value: 'PT', label: 'PT' },
-]; */
+import { useEffect, useState } from 'react';
+import Cookies from 'js-cookie';
+import base64url from 'base64url';
 
-// ----------------------------------------------------------------------
+if (typeof global.Buffer === 'undefined') {
+  global.Buffer = Buffer;
+}
 
 export default function DataForm() {
-  const navigate = useNavigate();
-  const [showPassword, setShowPassword] = useState(false);
+  const [user, setUser] = useState('');
 
-  /* Option for create account */
-  const handleClick = () => {
-    navigate('/dashboard', { replace: true });
-  };
-
-  /* Option for validate data of user before register */
-  const validateClick = () => {
-    navigate('/login', { replace: true });
-  };
-
-  const [open, setOpen] = useState(false);
-  const [startDate, setStartDate] = useState(new Date());
-  
+  useEffect(() => {
+    const authToken = Cookies.get('auth_token');
+    if (authToken) {
+      const [header, payload, signature] = authToken.split('.'); // obtener las partes del token
+      const decodedPayload = JSON.parse(base64url.decode(payload)); // decodificar el payload
+      const { username, password } = decodedPayload; // obtener los datos de usuario
+      setUser({ username, password }); // actualizar el estado con los datos de usuario
+    }
+  }, []);
 
   return (
     <>
-      <Stack spacing={2}>
-        <FormControl direction="row">
-          <InputLabel htmlFor="my-input">Email</InputLabel>
-          <Input id="my-input" aria-describedby="my-helper-text" />
-          <FormHelperText id="my-helper-text">Mensaje de prueba</FormHelperText>
-        </FormControl>
-
-        
-          {/* <DatePicker selected={startDate} onChange={(date:Date) => setStartDate(date)} /> */}
-          
-         
-        {/* <BlogPostsSort options={SORT_OPTIONS} /> */}
-        {/* <Stack direction="row" alignItems="center" justifyContent="space-between" spacing={1}>
-          <Typography variant="body2" sx={{ mb: 3 }}>
-            Tipo de documento:{' '}
-          </Typography>
-          <TextField type="number" name="tipo" label="Tipo de documento" />
-        </Stack> */}
-
-        {/* <Stack direction="row" alignItems="center" justifyContent="space-between" spacing={1}>
-          <Typography variant="body2" sx={{ mb: 3 }}>
-            Número de documento:{' '}
-          </Typography>
-          <TextField type="number" name="historia" label="Número de documento" />
-        </Stack> */}
-
-        {/* <Stack direction="row" alignItems="center" justifyContent="space-between" spacing={3}>
-          <Typography variant="body2" sx={{ mb: 3 }}>
-            Nombres:{' '}
-          </Typography>
-          <TextField type="text" name="nombre" label="Nombres" />
-        </Stack> */}
-
-        {/* <Stack direction="row" alignItems="center" justifyContent="space-between" spacing={3}>
-          <Typography variant="body2" sx={{ mb: 3 }}>
-            Apellidos:{' '}
-          </Typography>
-          <TextField type="text" name="apellidos" label="Apellidos" />
-        </Stack> */}
-
-        <Divider sx={{ my: 3 }}>
-          <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-            INFORMACIÓN DEL USUARIO
-          </Typography>
-        </Divider>
-
-        <Typography variant="h6" sx={{ mb: 2 }}>
-          Tipo de documento:{' '}
-        </Typography>
-        <TextField type="number" name="tipo" label="Tipo de documento" />
-
-        <Typography variant="h6" sx={{ mb: 2 }}>
-          Número de documento:{' '}
-        </Typography>
-        <TextField type="number" name="historia" label="Número de documento" />
-
-        <Typography variant="h6" sx={{ mb: 2 }}>
-          Nombres:{' '}
-        </Typography>
-        <TextField type="text" name="nombre" label="Nombres" />
-
-        <Typography variant="h6" sx={{ mb: 2 }}>
-          Apellidos:{' '}
-        </Typography>
-        <TextField type="text" name="apellidos" label="Apellidos" />
-      </Stack>
-
-      <Divider sx={{ my: 3 }}>
-        <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-          INFORMACIÓN DE CONTACTO
-        </Typography>
-      </Divider>
-
-      <Stack spacing={2}>
-        <TextField name="text" label="Dirección" />
-        <Stack direction="row" alignItems="center" justifyContent="space-between" spacing={3}>
-          <TextField type="text" name="city" label="Ciudad" />
-          <TextField type="number" name="tel" label="Telefono" />
-          <TextField type="number" name="tel" label="Celular" />
-        </Stack>
-
-        <TextField type="email" name="email" label="Email" />
-
-        <TextField
-          name="password"
-          label="Password"
-          type={showPassword ? 'text' : 'password'}
-          InputProps={{
-            endAdornment: (
-              <InputAdornment position="end">
-                <IconButton onClick={() => setShowPassword(!showPassword)} edge="end">
-                  <Iconify icon={showPassword ? 'eva:eye-fill' : 'eva:eye-off-fill'} />
-                </IconButton>
-              </InputAdornment>
-            ),
-          }}
-        />
-      </Stack>
-
-      <Stack direction="row" alignItems="center" justifyContent="space-between" sx={{ my: 2 }}>
-        {/* <Checkbox name="remember" label="Remember me" />
-        <Link variant="subtitle2" underline="hover">
-          By signing up, I agree to Terms of Service and Privacy Policy.
-        </Link> */}
-      </Stack>
-
-      <Stack direction="row" alignItems="center" justifyContent="space-between" spacing={3}>
-        <LoadingButton fullWidth size="large" type="reset" variant="contained" color="warning">
-          Limpiar datos
-        </LoadingButton>
-        <LoadingButton
-          fullWidth
-          size="large"
-          type="submit"
-          variant="contained"
-          /* color="info" */ onClick={handleClick}
-        >
-          Actualizar datos
-        </LoadingButton>
-      </Stack>
+      <div>
+        <h1>Perfil de usuario</h1>
+        <p>Username: {user.username}</p>
+        <p>Password: {user.password}</p>
+      </div>
     </>
   );
-}
+} */
+
+
+// Primera opcion para importar y capturar los datos del token
+/* import { useEffect, useState } from 'react';
+import Cookies from 'js-cookie';
+//import jwt from 'jsonwebtoken';
+
+
+export default function DataForm() {
+  const jwt = require('jsonwebtoken');
+  const [user, setUser] = useState('');  
+
+  useEffect(() => {
+    const authToken = Cookies.get('auth_token'); // Función para obtener la cookie "auth_token"
+    console.log(authToken);
+    if (authToken) {
+      // Decodificar el token JWT para obtener los datos de usuario
+      const decodedToken = jwt.decode(authToken);
+      if (decodedToken) {
+        const { name, email, photoUrl } = decodedToken; // Obtener los datos de usuario del token decodificado
+        setUser({ displayName: name, email, photoURL: photoUrl }); // Actualizar el estado con los datos de usuario
+      }
+    }
+  }, []);
+
+  return (
+    <>
+      <div>
+        <h1>Perfil de usuario</h1>
+        <p>Nombre: {user.displayName}</p>
+        <p>Email: {user.email}</p>
+        <img src={user.photoURL} alt={user.displayName} /> 
+      </div>
+    </>
+  );
+} */
+
+// Segunda opcion para importar y capturar los datos del token
+/* import { Buffer } from 'buffer';
+import { useEffect, useState } from 'react';
+import Cookies from 'js-cookie';
+
+export default function DataForm() {
+  if (typeof global.Buffer === 'undefined') {
+    global.Buffer = Buffer;
+  }
+  const [user, setUser] = useState('');
+
+  useEffect(() => {
+    const authToken = Cookies.get('auth_token');
+    console.log(authToken);
+    if (authToken) {
+      const decodedToken = decodeURIComponent(atob(authToken).split('').map(function(c) {
+        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+      }).join(''));
+      const { username, password } = JSON.parse(decodedToken);
+      setUser({ username, password });
+    }
+  }, []);
+
+  return (
+    <>
+      <div>
+        <h1>Perfil de usuario</h1>
+        <p>Username: {user.username}</p>
+        <p>Password: {user.password}</p>
+      </div>
+    </>
+  );
+} */
