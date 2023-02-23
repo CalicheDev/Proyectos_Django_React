@@ -1,24 +1,26 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Grid, Table, TableHead, TableRow, TableCell, TableBody } from '@mui/material';
+import { Grid, Table, TableHead, TableRow, TableCell, TableBody,TableContainer } from '@mui/material';
+import Scrollbar from '../../../components/scrollbar';
 import PacienteRow from './PacienteRow';
 
 const PacientesList = () => {
   const [pacientes, setPacientes] = useState([]);
 
   useEffect(() => {
-    axios.get('http://127.0.0.1:8000/api/pacientes_api/')
-      .then(response => {
+    axios
+      .get('http://127.0.0.1:8000/api/pacientes_api/')
+      .then((response) => {
         setPacientes(response.data);
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
       });
   }, []);
 
   return (
-    <Grid container spacing={2}>
-      <Grid item xs={12}>
+    
+      
         <Table>
           <TableHead>
             <TableRow>
@@ -52,13 +54,13 @@ const PacientesList = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {pacientes.map(paciente => (
+            {pacientes.map((paciente) => (
               <PacienteRow key={paciente.id} paciente={paciente} />
             ))}
           </TableBody>
         </Table>
-      </Grid>
-    </Grid>
+      
+    
   );
 };
 

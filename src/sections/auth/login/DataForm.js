@@ -37,8 +37,8 @@ export default function DataForm() {
       // Decodificar el token JWT para obtener los datos de usuario
       const decodedToken = jwt_decode(authToken);
       if (decodedToken) {
-        const { username, password, first_name, last_name,email } = decodedToken; // Obtener los datos de usuario del token decodificado
-        setUser({ displayName: username, password, first_name, last_name, email}); // Actualizar el estado con los datos de usuario
+        const { username, password, first_name, last_name, email } = decodedToken; // Obtener los datos de usuario del token decodificado
+        setUser({ displayName: username, password, first_name, last_name, email }); // Actualizar el estado con los datos de usuario
       }
     }
   }, []);
@@ -54,27 +54,30 @@ export default function DataForm() {
         <Typography variant="h6" sx={{ mb: 2 }}>
           Nombre:{''}
         </Typography>
-        <TextField type="text" name="first_name" label="Nombres" value={user.first_name}/>
+        <TextField type="text" name="first_name" value={user.first_name} />
         <Typography variant="h6" sx={{ mb: 2 }}>
           Apellidos:{' '}
         </Typography>
-        <TextField type="text" name="last_name" label="Apellidos" value={user.last_name} />
-        
-        <TextField type="email" name="email" label="Email" value={user.email} />
-        <TextField
-          name="password"
-          label="Password"
-          type={showPassword ? 'text' : 'password'}
-          InputProps={{
-            endAdornment: (
-              <InputAdornment position="end">
-                <IconButton onClick={() => setShowPassword(!showPassword)} edge="end">
-                  <Iconify icon={showPassword ? 'eva:eye-fill' : 'eva:eye-off-fill'} />
-                </IconButton>
-              </InputAdornment>
-            ),
-          }}
-        />
+        <TextField type="text" name="last_name" value={user.last_name} />
+
+        <TextField type="email" name="email" value={user.email} />
+        <Divider sx={{ my: 3 }}>
+        </Divider>
+          <TextField type="text" name="username" value={user.username} />
+          <TextField
+            name="password"
+            label="Password"
+            type={showPassword ? 'text' : 'password'}
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton onClick={() => setShowPassword(!showPassword)} edge="end">
+                    <Iconify icon={showPassword ? 'eva:eye-fill' : 'eva:eye-off-fill'} />
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
+          />
       </Stack>
       <Stack direction="row" alignItems="center" justifyContent="space-between" spacing={3}>
         <LoadingButton fullWidth size="large" type="reset" variant="contained" color="warning">

@@ -37,7 +37,7 @@ const LoginForm = () => {
         if (response.status === 200) {
           console.log(response.data);
           // Redireccionar a la página principal después de iniciar sesión
-          Cookies.set('auth_token', response.data.refresh); // Guardar el token en una cookie
+          Cookies.set('auth_token', response.data.access); // Guardar el token en una cookie
           navigate('/dashboard/perfil', { replace: true });
         } else {
           // Mostrar un mensaje de error al usuario

@@ -6,6 +6,7 @@ import SimpleLayout from './layouts/simple';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import UserPage from './pages/UserPage';
+import CustomersPage from './pages/CustomersPage';
 import ProfilePage from './pages/ProfilePage';
 import Page404 from './pages/Page404';
 import DashboardAppPage from './pages/DashboardAppPage';
@@ -26,6 +27,7 @@ export default function Router() {
         { path: 'app', element: <DashboardAppPage /> },
         { path: 'user', element: <UserPage /> },
         { path: 'perfil', element: <ProfilePage /> },
+        { path: 'customers', element: <CustomersPage /> },
         
       ],
     },

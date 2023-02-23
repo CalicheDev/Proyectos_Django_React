@@ -7,7 +7,7 @@ const UserList = () => {
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
-    axios.get('http://127.0.0.1:8000/api/user_api/')
+    axios.get('http://127.0.0.1:8000/api/notes/')
       .then(response => {
         setUsers(response.data);
       })
