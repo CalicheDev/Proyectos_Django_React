@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
 import { Navigate, useNavigate } from 'react-router-dom';
 // @mui
 import { alpha } from '@mui/material/styles';
@@ -6,6 +6,8 @@ import { Box, Divider, Typography, Stack, MenuItem, Avatar, IconButton, Popover 
 import ProfilePage from '../../../pages/ProfilePage';
 // mocks_
 import account from '../../../_mock/account';
+import Cookies from 'js-cookie';
+import jwt_decode from 'jwt-decode';
 
 // ----------------------------------------------------------------------
 
@@ -36,6 +38,21 @@ export default function AccountPopover() {
   const navigate = useNavigate();
   const [open, setOpen] = useState(null);
 
+  const [user, setUser] = useState('');
+
+  useEffect(() => {
+    let authToken = Cookies.get('auth_token'); // Función para obtener la cookie "auth_token"
+    console.log(authToken);
+    if (authToken) {
+      // Decodificar el token JWT para obtener los datos de usuario
+      const decodedToken = jwt_decode(authToken);
+      if (decodedToken) {
+        const { username,  email } = decodedToken; // Obtener los datos de usuario del token decodificado
+        setUser({ displayName: username, email }); // Actualizar el estado con los datos de usuario
+      }
+    }
+  }, []);
+
   const handleOpen = (event) => {
     setOpen(event.currentTarget);
   };
@@ -46,6 +63,7 @@ export default function AccountPopover() {
 
   const handleClick = () => {
     navigate('/login', { replace: true });
+    Cookies.remove('auth_token');
   };
 
   return (
@@ -67,7 +85,7 @@ export default function AccountPopover() {
           }),
         }}
       >
-        <Avatar src={account.photoURL} alt="photoURL" />
+        <Avatar src={user.photoURL} alt="photoURL" />
       </IconButton>
 
       <Popover
@@ -91,10 +109,10 @@ export default function AccountPopover() {
       >
         <Box sx={{ my: 1.5, px: 2.5 }}>
           <Typography variant="subtitle2" noWrap>
-            {account.displayName}
+            {user.displayName}
           </Typography>
           <Typography variant="body2" sx={{ color: 'text.secondary' }} noWrap>
-            {account.email}
+            {user.email}
           </Typography>
         </Box>
 
