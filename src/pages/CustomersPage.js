@@ -1,8 +1,8 @@
 import { Helmet } from 'react-helmet-async';
 import { useState } from 'react';
 // @mui
-import { styled } from '@mui/material/styles';
-import { Card, Container, Typography, Grid, Popover, MenuItem, TableContainer } from '@mui/material';
+//import { styled } from '@mui/material/styles';
+import { Card, Container, Typography, Popover, MenuItem, TableContainer } from '@mui/material';
 import Iconify from '../components/iconify';
 // components
 import { PacientesList } from '../sections/@dashboard/customers/index';

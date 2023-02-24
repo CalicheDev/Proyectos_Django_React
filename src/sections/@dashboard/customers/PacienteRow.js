@@ -1,10 +1,37 @@
-import React from 'react';
-import { TableCell, TableRow } from '@mui/material';
+import React, { useState }  from 'react';
+import { TableCell, TableRow,
+  Button, Dialog, DialogTitle,
+  DialogContent, DialogActions, } from '@mui/material';
+import {AtencionesSave} from './atenciones/index';
 
 const PacienteRow = ({ paciente }) => {
+  const [open, setOpen] = useState(false);
+  
+  //Funcion para abrir y cerrar el Dialog (Modal)
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };/*  */
+
   return (
-    <TableRow>
-      <TableCell>{/* Acciones */}</TableCell>
+    <TableRow key={paciente.id}>
+      <TableCell>
+        <Button variant="outlined" onClick={handleOpen}>
+          Atender
+        </Button>
+        <Dialog open={open} onClose={handleClose}>
+          <DialogTitle>Atender paciente</DialogTitle>
+          <DialogContent>
+            <AtencionesSave />
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleClose}>Cancelar</Button>
+          </DialogActions>
+        </Dialog>
+      </TableCell>
       <TableCell>{paciente.id}</TableCell>
       <TableCell>{paciente.fecha}</TableCell>
       <TableCell>{paciente.mes_cita}</TableCell>
