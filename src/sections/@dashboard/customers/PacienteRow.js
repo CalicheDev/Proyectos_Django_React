@@ -1,12 +1,10 @@
-import React, { useState }  from 'react';
-import { TableCell, TableRow,
-  Button, Dialog, DialogTitle,
-  DialogContent, DialogActions, } from '@mui/material';
-import {AtencionesSave} from './atenciones/index';
+import React, { useState } from 'react';
+import { Card, TableCell, TableRow, Button, Dialog, DialogTitle, DialogContent, DialogActions } from '@mui/material';
+import { AtencionesSave } from './atenciones/index';
 
 const PacienteRow = ({ paciente }) => {
   const [open, setOpen] = useState(false);
-  
+
   //Funcion para abrir y cerrar el Dialog (Modal)
   const handleOpen = () => {
     setOpen(true);
@@ -14,7 +12,7 @@ const PacienteRow = ({ paciente }) => {
 
   const handleClose = () => {
     setOpen(false);
-  };/*  */
+  }; /*  */
 
   return (
     <TableRow key={paciente.id}>
@@ -22,14 +20,17 @@ const PacienteRow = ({ paciente }) => {
         <Button variant="outlined" onClick={handleOpen}>
           Atender
         </Button>
-        <Dialog open={open} onClose={handleClose}>
-          <DialogTitle>Atender paciente</DialogTitle>
-          <DialogContent>
-            <AtencionesSave />
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={handleClose}>Cancelar</Button>
-          </DialogActions>
+        <Dialog open={open} onClose={handleClose} maxWidth="lg">
+          <DialogTitle>Agregar Atención</DialogTitle>
+          <Card>
+            <DialogContent>
+              <AtencionesSave />
+            </DialogContent>
+
+            <DialogActions>
+              <Button onClick={handleClose}>Cancelar</Button>
+            </DialogActions>
+          </Card>
         </Dialog>
       </TableCell>
       <TableCell>{paciente.id}</TableCell>

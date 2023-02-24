@@ -14,27 +14,27 @@ const navConfig = [
   {
     title: 'customers',
     path: '/dashboard/customers',
-    icon: icon('ic_user'),
+    icon: icon('support_agent_black_24dp'),
   },
   {
     title: 'perfil',
     path: '/dashboard/perfil',
-    icon: icon('ic_user'),
+    icon: icon('account_circle_black_24dp'),
   },
   {
     title: 'user',
     path: '/dashboard/user',
-    icon: icon('ic_user'),
+    icon: icon('manage_accounts_black_24dp'),
   },
   {
     title: 'login',
     path: '/login',
-    icon: icon('ic_lock'),
+    icon: icon('login_black_24dp'),
   },
   {
     title: 'register',
     path: '/register',
-    icon: icon('ic_lock'),
+    icon: icon('note_add_black_24dp'),
   },
   {
     title: 'Not found',
