@@ -1,19 +1,19 @@
 import { Helmet } from 'react-helmet-async';
-import { useState } from 'react';
+/* import { useState } from 'react'; */
 // @mui
 //import { styled } from '@mui/material/styles';
-import { Card, Container, Typography, Popover, MenuItem, TableContainer } from '@mui/material';
-import Iconify from '../components/iconify';
+import { Card, Container, Typography,/*  Popover, MenuItem,  */TableContainer } from '@mui/material';
+/* import Iconify from '../components/iconify'; */
 // components
 import { PacientesList } from '../sections/@dashboard/customers/index';
 import Scrollbar from '../components/scrollbar';
 
 export default function CustomersPage() {
-  const [open, setOpen] = useState(null);
+  /* const [open, setOpen] = useState(null);
 
   const handleCloseMenu = () => {
     setOpen(null);
-  };
+  }; */
 
   return (
     <>
@@ -35,7 +35,7 @@ export default function CustomersPage() {
         </Card>
       </Container>
 
-      <Popover
+      {/* <Popover
         open={Boolean(open)}
         anchorEl={open}
         onClose={handleCloseMenu}
@@ -62,7 +62,7 @@ export default function CustomersPage() {
           <Iconify icon={'eva:trash-2-outline'} sx={{ mr: 2 }} />
           Delete
         </MenuItem>
-      </Popover>
+      </Popover> */}
     </>
   );
 }

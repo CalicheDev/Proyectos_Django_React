@@ -62,6 +62,12 @@ export default function DataForm() {
         </Typography>
         <TextField type="text" name="last_name" value={user.last_name} />
 
+        <Divider sx={{ my: 3 }}>
+          <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+            CREDENCIALES
+          </Typography>
+        </Divider>
+
         <TextField type="email" name="email" value={user.email} />
         <Divider sx={{ my: 3 }}>
         </Divider>

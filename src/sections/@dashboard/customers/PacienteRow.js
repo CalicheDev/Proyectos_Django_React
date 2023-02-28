@@ -1,15 +1,16 @@
 import React, { useState } from 'react';
 import { Card, TableCell, TableRow, Button, Dialog, DialogTitle, DialogContent, DialogActions } from '@mui/material';
-import { AtencionesSave } from './atenciones/index';
+import {AtencionesSave} from './atenciones/index';
 
-const PacienteRow = ({ paciente }) => {
+const PacienteRow = ({ paciente, onClick }) => {
   const [open, setOpen] = useState(false);
+  //const { documento, orden, historia } = paciente;
 
   //Funcion para abrir y cerrar el Dialog (Modal)
   const handleOpen = () => {
     setOpen(true);
   };
-
+  //=> onClick(documento, orden, historia)
   const handleClose = () => {
     setOpen(false);
   }; /*  */
@@ -24,7 +25,7 @@ const PacienteRow = ({ paciente }) => {
           <DialogTitle>Agregar Atención</DialogTitle>
           <Card>
             <DialogContent>
-              <AtencionesSave />
+              <AtencionesSave key={paciente.id} paciente={paciente}/>
             </DialogContent>
 
             <DialogActions>

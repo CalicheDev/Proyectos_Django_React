@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 // @mui
-import { TextField, Stack, Button, Box } from '@mui/material';
+import { TextField, Stack, Table, TableRow, TableCell, TableBody, TableHead } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { LoadingButton } from '@mui/lab';
 // API
@@ -18,22 +19,39 @@ const useStyles = styled((theme) => ({
   },
   submitButton: {
     marginTop: theme.spacing(2),
-  },
+  },  
 }));
 
-function AtencionesSave() {
+function getColorByStatus(status) {
+  switch (status) {
+    case 'Entregado':
+      return 'green';
+    case 'Pendiente':
+      return 'orange';
+    case 'En camino':
+      return 'blue';
+    default:
+      return 'black';
+  }
+}
+
+const AtencionesSave = ({ open, handleClose, paciente }) => {
   const [formData, setForm] = useState({
-    fecha: '',
+    fecha: paciente.fecha,
     fecha_atencion: '',
-    documento: '',
+    /* documento: '',
     orden: '',
-    historia: '',
+    historia: '', */
+    documento: paciente.documento,
+    orden: paciente.orden,
+    historia: paciente.historia,
     observaciones: '',
     tipo_novedad: '',
     novedad: '',
     estado: '',
   });
 
+  const [isSaved, setIsSaved] = useState(false);
   const classes = useStyles();
 
   const handleChange = (e) => {
@@ -67,7 +85,21 @@ function AtencionesSave() {
         console.log(error);
         // Aquí podrías mostrar un mensaje de error
       });
+    setIsSaved(!isSaved);
   };
+
+  const [atenciones, setAtenciones] = useState([]);
+
+  useEffect(() => {
+    axios
+      .get(`http://127.0.0.1:8000/api/atencionesList/?orden=${paciente.orden}`)
+      .then((response) => {
+        setAtenciones(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, [isSaved, paciente.orden]);
 
   return (
     <Stack spacing={3}>
@@ -112,8 +144,38 @@ function AtencionesSave() {
           Guardar
         </LoadingButton>
       </form>
+      <Table>
+        <TableHead>
+          <TableRow>
+            <TableCell>ID</TableCell>
+            <TableCell>Fecha Atencion</TableCell>
+            <TableCell>Documento</TableCell>
+            <TableCell>Orden</TableCell>
+            <TableCell>Observaciones</TableCell>
+            <TableCell>Estado</TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {atenciones.map((atencion) => (
+            <TableRow key={atencion.id}>
+              <TableCell>{atencion.id}</TableCell>
+              <TableCell>{atencion.fecha_atencion}</TableCell>
+              <TableCell>{atencion.documento}</TableCell>
+              <TableCell>{atencion.orden}</TableCell>
+              <TableCell>{atencion.observaciones}</TableCell>
+              <TableCell style={{ color: getColorByStatus(atencion.estado) }}>{atencion.estado}</TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
     </Stack>
   );
-}
+};
+
+AtencionesSave.propTypes = {
+  open: PropTypes.bool.isRequired,
+  handleClose: PropTypes.func.isRequired,
+  paciente: PropTypes.object.isRequired,
+};
 
 export default AtencionesSave;

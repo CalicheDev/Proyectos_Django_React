@@ -5,7 +5,7 @@ import { alpha } from '@mui/material/styles';
 import { Box, Divider, Typography, Stack, MenuItem, Avatar, IconButton, Popover } from '@mui/material';
 import ProfilePage from '../../../pages/ProfilePage';
 // mocks_
-import account from '../../../_mock/account';
+//import account from '../../../_mock/account';
 import Cookies from 'js-cookie';
 import jwt_decode from 'jwt-decode';
 

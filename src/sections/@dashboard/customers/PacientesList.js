@@ -2,11 +2,17 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Table, TableHead, TableRow, TableCell, TableBody } from '@mui/material';
 import PacienteRow from './PacienteRow';
-//import {AtencionesSave} from './atenciones/index';
+/* import {AtencionesSave} from './atenciones/index'; */
 
 const PacientesList = () => {
   const [pacientes, setPacientes] = useState([]);
-  //const [open, setOpen] = useState(false);
+  /* const [selectedPaciente, setSelectedPaciente] = useState(null); */
+  const [open, setOpen] = useState(false);
+
+  /* const handleClick = (paciente) => {
+    setSelectedPaciente(paciente);
+    setOpen(true);
+  }; */
 
   useEffect(() => {
     axios
@@ -19,13 +25,16 @@ const PacientesList = () => {
       });
   }, []);
 
-  /* const handleOpen = () => {
+  const handleOpen = () => {    
     setOpen(true);
   };
 
   const handleClose = () => {
     setOpen(false);
-  }; */
+  };
+
+  
+
 
   return (
     <Table>
@@ -62,10 +71,12 @@ const PacientesList = () => {
       </TableHead>
       <TableBody>
         {pacientes.map((paciente) => (
-          <PacienteRow key={paciente.id} paciente={paciente} /* handleOpen={handleOpen} handleClose={handleClose} */ />
+          <PacienteRow key={paciente.id} paciente={paciente} handleOpen={handleOpen} handleClose={handleClose} />
         ))}
       </TableBody>
+      
     </Table>
+    
   );
 };
 
